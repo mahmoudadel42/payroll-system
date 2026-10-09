@@ -11,7 +11,7 @@ Manage the two incentive types (INC-01..INC-03):
 ## Business Rules
 - Percentages 0–100, two decimals.
 - Service tiers are data (`MinYearsExceeded`, `Percentage`), seeded with 5 and 7; Admin may add more tiers.
-- An employee matches the tier with the **highest `MinYearsExceeded` strictly less than** their full years of service; only that tier applies (not cumulative — see Analysis open question #2).
+- An employee matches the tier with the **highest `MinYearsExceeded` strictly less than** their full years of service; only that tier applies (not cumulative — see Analysis open question 2).
 - Changes affect only draft/future payroll runs.
 
 <!-- TASK -->

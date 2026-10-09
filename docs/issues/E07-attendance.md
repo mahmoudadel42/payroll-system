@@ -10,7 +10,7 @@ Record employees' **absence days** and apply configurable deduction/bonus percen
 | Absence days in month | Effect |
 |-----------------------|--------|
 | 0 or 1 day | **Bonus** % |
-| 2 days | none (see Analysis open question #3) |
+| 2 days | none (see Analysis open question 3) |
 | more than 2 days | Deduction % (tier 1) |
 | more than 5 days | Deduction % (tier 2) |
 | more than 10 days | Deduction % (tier 3) |

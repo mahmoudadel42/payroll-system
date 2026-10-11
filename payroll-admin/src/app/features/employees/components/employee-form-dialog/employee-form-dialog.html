@@ -1,0 +1,70 @@
+<h2 mat-dialog-title>{{ (employee ? 'employees.edit' : 'employees.create') | translate }}</h2>
+<form [formGroup]="form" (ngSubmit)="save()" novalidate>
+  <mat-dialog-content>
+    <div class="form-grid">
+      <mat-form-field class="full-width">
+        <mat-label>{{ 'employees.fullName' | translate }}</mat-label>
+        <input matInput formControlName="fullName" />
+        <mat-error><app-control-error [control]="form.controls.fullName" /></mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'employees.email' | translate }}</mat-label>
+        <input matInput type="email" formControlName="email" dir="ltr" />
+        <mat-error><app-control-error [control]="form.controls.email" /></mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'employees.phone' | translate }}</mat-label>
+        <input matInput type="tel" formControlName="phone" dir="ltr" />
+        <mat-error><app-control-error [control]="form.controls.phone" /></mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'employees.birthDate' | translate }}</mat-label>
+        <input matInput [matDatepicker]="birthPicker" formControlName="birthDate" [max]="maxDate" />
+        <mat-datepicker-toggle matIconSuffix [for]="birthPicker" />
+        <mat-datepicker #birthPicker startView="multi-year" />
+        <mat-error><app-control-error [control]="form.controls.birthDate" /></mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'employees.hireDate' | translate }}</mat-label>
+        <input matInput [matDatepicker]="hirePicker" formControlName="hireDate" [max]="maxDate" />
+        <mat-datepicker-toggle matIconSuffix [for]="hirePicker" />
+        <mat-datepicker #hirePicker />
+        <mat-error><app-control-error [control]="form.controls.hireDate" /></mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'employees.department' | translate }}</mat-label>
+        <mat-select formControlName="departmentId">
+          @for (department of departments(); track department.id) {
+            <mat-option [value]="department.id">{{ department.name }}</mat-option>
+          }
+        </mat-select>
+        <mat-error><app-control-error [control]="form.controls.departmentId" /></mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'employees.grade' | translate }}</mat-label>
+        <mat-select formControlName="grade">
+          @for (grade of grades; track grade) {
+            <mat-option [value]="grade">{{ 'enums.grade.' + grade | translate }}</mat-option>
+          }
+        </mat-select>
+        <mat-error><app-control-error [control]="form.controls.grade" /></mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>{{ 'employees.address' | translate }}</mat-label>
+        <textarea matInput formControlName="address" rows="2"></textarea>
+        <mat-error><app-control-error [control]="form.controls.address" /></mat-error>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" mat-dialog-close>{{ 'common.cancel' | translate }}</button>
+    <button mat-flat-button type="submit" [disabled]="saving()">{{ 'common.save' | translate }}</button>
+  </mat-dialog-actions>
+</form>

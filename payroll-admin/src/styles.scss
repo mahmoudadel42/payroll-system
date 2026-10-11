@@ -1,0 +1,234 @@
+@use '@angular/material' as mat;
+
+html {
+  color-scheme: light;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: (
+        plain-family: var(--app-font),
+        brand-family: var(--app-font),
+      ),
+      density: 0,
+    )
+  );
+
+  --app-font: 'Inter', 'Segoe UI', Roboto, sans-serif;
+  --app-success: #1b7f3b;
+  --app-success-container: #d7f5df;
+  --app-warning: #8a5300;
+  --app-warning-container: #ffe8c2;
+}
+
+html[lang='ar'] {
+  --app-font: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--app-font);
+  background: var(--mat-sys-surface-container-lowest);
+  color: var(--mat-sys-on-surface);
+}
+
+// ---------- Layout helpers ----------
+
+.card {
+  background: var(--mat-sys-surface);
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.card__body {
+  padding: 20px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-block-end: 1px solid var(--mat-sys-outline-variant);
+
+  mat-form-field {
+    flex: 1 1 200px;
+    max-width: 320px;
+  }
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 4px 16px;
+  padding-block-start: 8px;
+
+  .full-width {
+    grid-column: 1 / -1;
+  }
+}
+
+.table-wrapper {
+  position: relative;
+  overflow-x: auto;
+
+  table {
+    width: 100%;
+  }
+
+  .mat-mdc-row:hover {
+    background: var(--mat-sys-surface-container-low);
+  }
+
+  .mat-mdc-cell.num,
+  .mat-mdc-header-cell.num,
+  .mat-mdc-footer-cell.num {
+    text-align: end;
+    white-space: nowrap;
+  }
+
+  .mat-mdc-cell.actions,
+  .mat-mdc-header-cell.actions {
+    width: 1%;
+    white-space: nowrap;
+    text-align: end;
+  }
+
+  .mat-mdc-footer-cell {
+    font-weight: 700;
+  }
+}
+
+.loading-bar {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.muted {
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.tab-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+
+  p {
+    margin: 0;
+  }
+}
+
+.selected-absence-day {
+  background: var(--mat-sys-error-container);
+  border-radius: 50%;
+}
+
+// ---------- Status chips ----------
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font: var(--mat-sys-label-medium);
+  white-space: nowrap;
+  background: var(--mat-sys-surface-container-high);
+  color: var(--mat-sys-on-surface-variant);
+
+  &--success {
+    background: var(--app-success-container);
+    color: var(--app-success);
+  }
+
+  &--warning {
+    background: var(--app-warning-container);
+    color: var(--app-warning);
+  }
+
+  &--error {
+    background: var(--mat-sys-error-container);
+    color: var(--mat-sys-on-error-container);
+  }
+
+  &--info {
+    background: var(--mat-sys-primary-container);
+    color: var(--mat-sys-on-primary-container);
+  }
+}
+
+.positive {
+  color: var(--app-success);
+}
+
+.negative {
+  color: var(--mat-sys-error);
+}
+
+// ---------- Material overrides ----------
+
+.danger-button.mat-mdc-unelevated-button:not(:disabled) {
+  background: var(--mat-sys-error);
+  color: var(--mat-sys-on-error);
+}
+
+.mat-mdc-snack-bar-container {
+  white-space: pre-line;
+
+  &.snack-success {
+    --mat-snack-bar-container-color: var(--app-success);
+    --mat-snack-bar-supporting-text-color: #fff;
+    --mat-snack-bar-button-color: #fff;
+  }
+
+  &.snack-error {
+    --mat-snack-bar-container-color: var(--mat-sys-error);
+    --mat-snack-bar-supporting-text-color: var(--mat-sys-on-error);
+    --mat-snack-bar-button-color: var(--mat-sys-on-error);
+  }
+}
+
+// Icons that imply direction must mirror in RTL.
+[dir='rtl'] .mirror-rtl {
+  transform: scaleX(-1);
+}
+
+// Printing an open dialog (e.g. a payslip) prints only the dialog content.
+@media print {
+  app-root,
+  .cdk-overlay-backdrop,
+  .mat-mdc-dialog-actions {
+    display: none !important;
+  }
+
+  .cdk-overlay-container,
+  .cdk-global-overlay-wrapper,
+  .cdk-overlay-pane {
+    position: static !important;
+    display: block !important;
+    max-width: none !important;
+    width: 100% !important;
+  }
+
+  .mat-mdc-dialog-content {
+    max-height: none !important;
+  }
+}

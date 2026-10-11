@@ -1,0 +1,129 @@
+<a mat-button routerLink="/payroll-runs" class="back-link">
+  <mat-icon class="mirror-rtl">arrow_back</mat-icon>
+  {{ 'common.back' | translate }}
+</a>
+
+@if (details.isLoading() && !run()) {
+  <mat-progress-bar mode="indeterminate" />
+}
+
+@if (details.status() === 'error') {
+  <app-empty-state icon="error_outline" [message]="'errors.notFound' | translate" />
+}
+
+@if (run(); as run) {
+  <app-page-header [title]="('payroll.runFor' | translate) + ' ' + (run.year | period: run.month)">
+    @if (isDraft()) {
+      <button mat-stroked-button (click)="recalculate()">
+        <mat-icon>refresh</mat-icon>
+        {{ 'payroll.recalculate' | translate }}
+      </button>
+      <button mat-stroked-button (click)="delete()">
+        <mat-icon>delete</mat-icon>
+        {{ 'common.delete' | translate }}
+      </button>
+      <button mat-flat-button *appHasRole="'Admin'" (click)="approve()">
+        <mat-icon>verified</mat-icon>
+        {{ 'payroll.approve' | translate }}
+      </button>
+    }
+  </app-page-header>
+
+  <div class="summary">
+    <div class="card summary__item">
+      <span class="muted">{{ 'common.status' | translate }}</span>
+      <app-run-status-chip [status]="run.status" />
+    </div>
+    <div class="card summary__item">
+      <span class="muted">{{ 'payroll.employeesCount' | translate }}</span>
+      <strong>{{ run.employeesCount }}</strong>
+    </div>
+    <div class="card summary__item">
+      <span class="muted">{{ 'payroll.totalNet' | translate }}</span>
+      <strong>{{ run.totalNet | money }}</strong>
+    </div>
+    <div class="card summary__item">
+      <span class="muted">{{ (run.approvedAt ? 'payroll.approvedAt' : 'payroll.createdAt') | translate }}</span>
+      <strong>{{ run.approvedAt ?? run.createdAt | localDate: 'dateTime' }}</strong>
+    </div>
+  </div>
+
+  @if (!isDraft()) {
+    <p class="locked muted">
+      <mat-icon>lock</mat-icon>
+      {{ 'payroll.lockedHint' | translate }}
+    </p>
+  }
+
+  <section class="card">
+    <div class="filters">
+      <mat-form-field>
+        <mat-label>{{ 'common.search' | translate }}</mat-label>
+        <input matInput (input)="applyFilter($any($event.target).value)" />
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="table-wrapper">
+      @if (details.isLoading()) {
+        <mat-progress-bar class="loading-bar" mode="indeterminate" />
+      }
+      <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="employeeName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'absences.employee' | translate }}</th>
+          <td mat-cell *matCellDef="let row"><strong>{{ row.employeeName }}</strong></td>
+          <td mat-footer-cell *matFooterCellDef>{{ 'common.total' | translate }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="departmentName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'employees.department' | translate }}</th>
+          <td mat-cell *matCellDef="let row">{{ row.departmentName }}</td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <ng-container matColumnDef="grade">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'employees.grade' | translate }}</th>
+          <td mat-cell *matCellDef="let row">{{ 'enums.grade.' + row.grade | translate }}</td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <ng-container matColumnDef="absenceDays">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="num">{{ 'payroll.absenceDays' | translate }}</th>
+          <td mat-cell *matCellDef="let row" class="num">{{ row.absenceDays }}</td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <ng-container matColumnDef="baseSalary">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="num">{{ 'payroll.baseSalary' | translate }}</th>
+          <td mat-cell *matCellDef="let row" class="num">{{ row.baseSalary | money }}</td>
+          <td mat-footer-cell *matFooterCellDef class="num">{{ totals().baseSalary | money }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="incentives">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="num">{{ 'payroll.incentives' | translate }}</th>
+          <td mat-cell *matCellDef="let row" class="num positive">{{ incentivesOf(row) | money }}</td>
+          <td mat-footer-cell *matFooterCellDef class="num positive">{{ totals().incentives | money }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="absenceDeduction">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="num">{{ 'payroll.deductions' | translate }}</th>
+          <td mat-cell *matCellDef="let row" class="num negative">{{ row.absenceDeduction | money }}</td>
+          <td mat-footer-cell *matFooterCellDef class="num negative">{{ totals().absenceDeduction | money }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="netSalary">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="num">{{ 'payroll.netSalary' | translate }}</th>
+          <td mat-cell *matCellDef="let row" class="num"><strong>{{ row.netSalary | money }}</strong></td>
+          <td mat-footer-cell *matFooterCellDef class="num">{{ totals().netSalary | money }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns" class="clickable" (click)="openPayslip(row)"></tr>
+        <tr mat-footer-row *matFooterRowDef="columns"></tr>
+      </table>
+      @if (dataSource.filteredData.length === 0) {
+        <app-empty-state icon="receipt_long" [message]="'common.noData' | translate" />
+      }
+    </div>
+  </section>
+}

@@ -1,0 +1,130 @@
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-block-end: 24px;
+
+  h1 {
+    margin: 0;
+    font: var(--mat-sys-headline-small);
+  }
+
+  p {
+    margin: 4px 0 0;
+  }
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.progress {
+  margin-block-end: 16px;
+}
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-block-end: 16px;
+}
+
+.kpi {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px;
+  color: inherit;
+  text-decoration: none;
+  transition: box-shadow 150ms ease, transform 150ms ease;
+
+  &:hover {
+    box-shadow: var(--mat-sys-level2);
+    transform: translateY(-2px);
+  }
+}
+
+.kpi__icon {
+  position: absolute;
+  top: 20px;
+  inset-inline-end: 20px;
+  color: var(--mat-sys-primary);
+  opacity: 0.8;
+}
+
+.kpi__label {
+  color: var(--mat-sys-on-surface-variant);
+  font: var(--mat-sys-label-large);
+}
+
+.kpi__value {
+  font: var(--mat-sys-headline-medium);
+  font-weight: 700;
+}
+
+.kpi__hint {
+  color: var(--mat-sys-on-surface-variant);
+  font: var(--mat-sys-body-small);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 16px;
+  align-items: start;
+
+  @media (max-width: 959px) {
+    grid-template-columns: 1fr;
+  }
+
+  h2 {
+    margin: 0 0 16px;
+    font: var(--mat-sys-title-medium);
+  }
+
+  .spaced {
+    margin-block-start: 28px;
+  }
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 0;
+
+  h2 {
+    margin: 0;
+  }
+}
+
+.run-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 20px;
+  color: inherit;
+  text-decoration: none;
+  border-block-end: 1px solid var(--mat-sys-outline-variant);
+
+  &:last-child {
+    border-block-end: none;
+  }
+
+  &:hover {
+    background: var(--mat-sys-surface-container-low);
+  }
+}
+
+.run-row__end {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}

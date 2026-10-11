@@ -1,0 +1,56 @@
+<h2 mat-dialog-title>{{ 'payroll.payslip' | translate }} · {{ data.year | period: data.month }}</h2>
+<mat-dialog-content class="payslip">
+  <div class="payslip__header">
+    <div>
+      <strong>{{ p.employeeName }}</strong>
+      <div class="muted">{{ p.departmentName }}</div>
+    </div>
+    <div class="payslip__meta">
+      <span>{{ 'employees.grade' | translate }}: {{ 'enums.grade.' + p.grade | translate }}</span>
+      <span>{{ 'employees.serviceYears' | translate }}: {{ p.serviceYears }}</span>
+      <span>{{ 'payroll.absenceDays' | translate }}: {{ p.absenceDays }}</span>
+    </div>
+  </div>
+
+  <mat-divider />
+
+  <table class="payslip__lines">
+    <tbody>
+      <tr>
+        <td>{{ 'payroll.baseSalary' | translate }}</td>
+        <td></td>
+        <td class="amount">{{ p.baseSalary | money }}</td>
+      </tr>
+      <tr>
+        <td>{{ 'payroll.departmentIncentive' | translate }}</td>
+        <td class="muted">{{ p.departmentIncentivePercentage | percentValue }}</td>
+        <td class="amount positive">+ {{ p.departmentIncentive | money }}</td>
+      </tr>
+      <tr>
+        <td>{{ 'payroll.serviceYearsIncentive' | translate }}</td>
+        <td class="muted">{{ p.serviceYearsIncentivePercentage | percentValue }}</td>
+        <td class="amount positive">+ {{ p.serviceYearsIncentive | money }}</td>
+      </tr>
+      <tr>
+        <td>{{ 'payroll.absenceBonus' | translate }}</td>
+        <td class="muted">{{ p.absenceBonusPercentage | percentValue }}</td>
+        <td class="amount positive">+ {{ p.absenceBonus | money }}</td>
+      </tr>
+      <tr>
+        <td>{{ 'payroll.absenceDeduction' | translate }}</td>
+        <td class="muted">{{ p.absenceDeductionPercentage | percentValue }}</td>
+        <td class="amount negative">− {{ p.absenceDeduction | money }}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2">{{ 'payroll.netSalary' | translate }}</td>
+        <td class="amount">{{ p.netSalary | money }}</td>
+      </tr>
+    </tfoot>
+  </table>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="print()">{{ 'common.print' | translate }}</button>
+  <button mat-flat-button mat-dialog-close>{{ 'common.close' | translate }}</button>
+</mat-dialog-actions>

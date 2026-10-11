@@ -1,0 +1,93 @@
+<app-page-header [title]="'nav.payrollRuns' | translate" [subtitle]="'payroll.subtitle' | translate">
+  <button mat-flat-button (click)="generate()">
+    <mat-icon>calculate</mat-icon>
+    {{ 'payroll.generate' | translate }}
+  </button>
+</app-page-header>
+
+<section class="card">
+  <div class="filters">
+    <mat-form-field>
+      <mat-label>{{ 'common.year' | translate }}</mat-label>
+      <mat-select [value]="list.query().year" (selectionChange)="filterByYear($event.value)">
+        <mat-option [value]="null">{{ 'common.all' | translate }}</mat-option>
+        @for (year of years; track year) {
+          <mat-option [value]="year">{{ year }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ 'common.status' | translate }}</mat-label>
+      <mat-select [value]="list.query().status" (selectionChange)="filterByStatus($event.value)">
+        <mat-option [value]="null">{{ 'common.all' | translate }}</mat-option>
+        @for (status of statuses; track status) {
+          <mat-option [value]="status">{{ 'enums.runStatus.' + status | translate }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="table-wrapper">
+    @if (list.isLoading()) {
+      <mat-progress-bar class="loading-bar" mode="indeterminate" />
+    }
+
+    <table mat-table [dataSource]="list.items()">
+      <ng-container matColumnDef="period">
+        <th mat-header-cell *matHeaderCellDef>{{ 'payroll.period' | translate }}</th>
+        <td mat-cell *matCellDef="let row">
+          <strong>{{ row.year | period: row.month }}</strong>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>{{ 'common.status' | translate }}</th>
+        <td mat-cell *matCellDef="let row"><app-run-status-chip [status]="row.status" /></td>
+      </ng-container>
+
+      <ng-container matColumnDef="employeesCount">
+        <th mat-header-cell *matHeaderCellDef class="num">{{ 'payroll.employeesCount' | translate }}</th>
+        <td mat-cell *matCellDef="let row" class="num">{{ row.employeesCount }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="totalNet">
+        <th mat-header-cell *matHeaderCellDef class="num">{{ 'payroll.totalNet' | translate }}</th>
+        <td mat-cell *matCellDef="let row" class="num">{{ row.totalNet | money }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef>{{ 'payroll.createdAt' | translate }}</th>
+        <td mat-cell *matCellDef="let row">{{ row.createdAt | localDate: 'dateTime' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="approvedAt">
+        <th mat-header-cell *matHeaderCellDef>{{ 'payroll.approvedAt' | translate }}</th>
+        <td mat-cell *matCellDef="let row">{{ row.approvedAt | localDate: 'dateTime' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="open">
+        <th mat-header-cell *matHeaderCellDef class="actions"></th>
+        <td mat-cell *matCellDef="let row" class="actions">
+          <mat-icon class="muted mirror-rtl">chevron_right</mat-icon>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr mat-row *matRowDef="let row; columns: columns" class="clickable" (click)="open(row)"></tr>
+    </table>
+
+    @if (!list.isLoading() && list.items().length === 0) {
+      <app-empty-state icon="payments" [message]="'payroll.empty' | translate" />
+    }
+  </div>
+
+  <mat-paginator
+    [length]="list.totalCount()"
+    [pageIndex]="list.pageIndex()"
+    [pageSize]="list.pageSize()"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="list.changePage($event)"
+    showFirstLastButtons
+  />
+</section>

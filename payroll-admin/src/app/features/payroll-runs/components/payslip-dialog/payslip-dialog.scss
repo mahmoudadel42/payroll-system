@@ -1,0 +1,39 @@
+.payslip__header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  padding-block-end: 16px;
+}
+
+.payslip__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font: var(--mat-sys-body-small);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.payslip__lines {
+  width: 100%;
+  margin-block-start: 8px;
+  border-collapse: collapse;
+
+  td {
+    padding: 10px 4px;
+    border-block-end: 1px solid var(--mat-sys-outline-variant);
+  }
+
+  .amount {
+    text-align: end;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  tfoot td {
+    border-block-end: none;
+    padding-block-start: 16px;
+    font: var(--mat-sys-title-medium);
+    font-weight: 700;
+  }
+}

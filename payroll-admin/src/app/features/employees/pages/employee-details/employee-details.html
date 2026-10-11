@@ -1,0 +1,82 @@
+<a mat-button routerLink="/employees" class="back-link">
+  <mat-icon class="mirror-rtl">arrow_back</mat-icon>
+  {{ 'common.back' | translate }}
+</a>
+
+@if (details.isLoading() && !employee()) {
+  <mat-progress-bar mode="indeterminate" />
+}
+
+@if (details.status() === 'error') {
+  <app-empty-state icon="error_outline" [message]="'errors.notFound' | translate" />
+}
+
+@if (info(); as info) {
+  @let employee = info.employee;
+  <app-page-header [title]="employee.fullName" [subtitle]="employee.departmentName">
+    <button mat-flat-button (click)="edit()">
+      <mat-icon>edit</mat-icon>
+      {{ 'common.edit' | translate }}
+    </button>
+  </app-page-header>
+
+  <div class="stats">
+    <div class="card stat">
+      <span class="stat__label">{{ 'employees.baseSalary' | translate }}</span>
+      <span class="stat__value">{{ info.baseSalary | money }}</span>
+    </div>
+    <div class="card stat">
+      <span class="stat__label">{{ 'employees.departmentIncentive' | translate }}</span>
+      <span class="stat__value">{{ info.departmentIncentivePercentage | percentValue }}</span>
+    </div>
+    <div class="card stat">
+      <span class="stat__label">{{ 'employees.serviceYears' | translate }}</span>
+      <span class="stat__value">{{ info.serviceYears }}</span>
+    </div>
+    <div class="card stat">
+      <span class="stat__label">{{ 'employees.grade' | translate }}</span>
+      <span class="stat__value">{{ 'enums.grade.' + employee.grade | translate }}</span>
+    </div>
+  </div>
+
+  <div class="columns">
+    <section class="card card__body">
+      <h2 class="section-title">{{ 'employees.personalInfo' | translate }}</h2>
+      <dl class="info">
+        <dt>{{ 'employees.email' | translate }}</dt>
+        <dd dir="ltr">{{ employee.email }}</dd>
+        <dt>{{ 'employees.phone' | translate }}</dt>
+        <dd dir="ltr">{{ employee.phone }}</dd>
+        <dt>{{ 'employees.address' | translate }}</dt>
+        <dd>{{ employee.address }}</dd>
+        <dt>{{ 'employees.birthDate' | translate }}</dt>
+        <dd>{{ employee.birthDate | localDate }}</dd>
+        <dt>{{ 'employees.hireDate' | translate }}</dt>
+        <dd>{{ employee.hireDate | localDate }}</dd>
+        <dt>{{ 'employees.department' | translate }}</dt>
+        <dd>{{ employee.departmentName }}</dd>
+      </dl>
+    </section>
+
+    <section class="card">
+      <h2 class="section-title card__body">{{ 'employees.recentAbsences' | translate }}</h2>
+      <div class="table-wrapper">
+        <table mat-table [dataSource]="recentAbsences()">
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>{{ 'absences.date' | translate }}</th>
+            <td mat-cell *matCellDef="let row">{{ row.date | localDate }}</td>
+          </ng-container>
+          <ng-container matColumnDef="reason">
+            <th mat-header-cell *matHeaderCellDef>{{ 'absences.reason' | translate }}</th>
+            <td mat-cell *matCellDef="let row">{{ row.reason || '—' }}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="absenceColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: absenceColumns"></tr>
+        </table>
+        @if (!absences.isLoading() && recentAbsences().length === 0) {
+          <app-empty-state icon="event_available" [message]="'absences.none' | translate" />
+        }
+      </div>
+    </section>
+  </div>
+}

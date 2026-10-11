@@ -1,0 +1,74 @@
+<app-page-header [title]="'nav.departments' | translate" [subtitle]="'departments.subtitle' | translate">
+  <button mat-flat-button *appHasRole="'Admin'" (click)="openForm()">
+    <mat-icon>add</mat-icon>
+    {{ 'departments.create' | translate }}
+  </button>
+</app-page-header>
+
+<section class="card">
+  <div class="filters">
+    <mat-form-field>
+      <mat-label>{{ 'common.search' | translate }}</mat-label>
+      <input matInput [formControl]="search" />
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <div class="table-wrapper">
+    @if (list.isLoading()) {
+      <mat-progress-bar class="loading-bar" mode="indeterminate" />
+    }
+
+    <table mat-table [dataSource]="list.items()">
+      <ng-container matColumnDef="nameEn">
+        <th mat-header-cell *matHeaderCellDef>{{ 'departments.nameEn' | translate }}</th>
+        <td mat-cell *matCellDef="let row" dir="ltr">{{ row.nameEn }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="nameAr">
+        <th mat-header-cell *matHeaderCellDef>{{ 'departments.nameAr' | translate }}</th>
+        <td mat-cell *matCellDef="let row" dir="rtl">{{ row.nameAr }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="incentivePercentage">
+        <th mat-header-cell *matHeaderCellDef class="num">{{ 'departments.incentive' | translate }}</th>
+        <td mat-cell *matCellDef="let row" class="num">{{ row.incentivePercentage | percentValue }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="employeesCount">
+        <th mat-header-cell *matHeaderCellDef class="num">{{ 'departments.employeesCount' | translate }}</th>
+        <td mat-cell *matCellDef="let row" class="num">{{ row.employeesCount }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="actions"></th>
+        <td mat-cell *matCellDef="let row" class="actions">
+          <ng-container *appHasRole="'Admin'">
+            <button mat-icon-button (click)="openForm(row)" [matTooltip]="'common.edit' | translate">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="delete(row)" [matTooltip]="'common.delete' | translate">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </ng-container>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr mat-row *matRowDef="let row; columns: columns"></tr>
+    </table>
+
+    @if (!list.isLoading() && list.items().length === 0) {
+      <app-empty-state icon="apartment" [message]="'common.noData' | translate" />
+    }
+  </div>
+
+  <mat-paginator
+    [length]="list.totalCount()"
+    [pageIndex]="list.pageIndex()"
+    [pageSize]="list.pageSize()"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="list.changePage($event)"
+    showFirstLastButtons
+  />
+</section>

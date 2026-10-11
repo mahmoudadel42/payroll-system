@@ -1,0 +1,76 @@
+<header class="hero">
+  <div>
+    <h1>{{ greetingKey() | translate }}, {{ auth.displayName() }}</h1>
+    <p class="muted">{{ 'dashboard.subtitle' | translate }}</p>
+  </div>
+  <div class="hero__actions">
+    <a mat-stroked-button routerLink="/absences">
+      <mat-icon>event_busy</mat-icon>
+      {{ 'absences.create' | translate }}
+    </a>
+    <a mat-flat-button routerLink="/payroll-runs">
+      <mat-icon>calculate</mat-icon>
+      {{ 'payroll.generate' | translate }}
+    </a>
+  </div>
+</header>
+
+@if (isLoading()) {
+  <mat-progress-bar mode="indeterminate" class="progress" />
+}
+
+<div class="kpis">
+  <a class="card kpi" routerLink="/employees">
+    <mat-icon class="kpi__icon">groups</mat-icon>
+    <span class="kpi__label">{{ 'dashboard.totalEmployees' | translate }}</span>
+    <span class="kpi__value">{{ report()?.totalEmployees ?? '—' }}</span>
+  </a>
+  <a class="card kpi" routerLink="/departments">
+    <mat-icon class="kpi__icon">apartment</mat-icon>
+    <span class="kpi__label">{{ 'dashboard.departments' | translate }}</span>
+    <span class="kpi__value">{{ report()?.byDepartment?.length ?? '—' }}</span>
+  </a>
+  <a class="card kpi" [routerLink]="latestRun() ? ['/payroll-runs', latestRun()!.id] : '/payroll-runs'">
+    <mat-icon class="kpi__icon">payments</mat-icon>
+    <span class="kpi__label">{{ 'dashboard.latestPayroll' | translate }}</span>
+    <span class="kpi__value">{{ latestRun()?.totalNet | money }}</span>
+    @if (latestRun(); as run) {
+      <span class="kpi__hint">{{ run.year | period: run.month }}</span>
+    }
+  </a>
+  <a class="card kpi" routerLink="/payroll-runs">
+    <mat-icon class="kpi__icon">pending_actions</mat-icon>
+    <span class="kpi__label">{{ 'dashboard.pendingApproval' | translate }}</span>
+    <span class="kpi__value">{{ draftCount() }}</span>
+  </a>
+</div>
+
+<div class="grid">
+  <section class="card">
+    <div class="section-head">
+      <h2>{{ 'dashboard.recentRuns' | translate }}</h2>
+      <a mat-button routerLink="/payroll-runs">{{ 'dashboard.viewAll' | translate }}</a>
+    </div>
+    @for (run of recentRuns(); track run.id) {
+      <a class="run-row" [routerLink]="['/payroll-runs', run.id]">
+        <div>
+          <strong>{{ run.year | period: run.month }}</strong>
+          <div class="muted">{{ 'dashboard.employeesPaid' | translate: { count: run.employeesCount } }}</div>
+        </div>
+        <div class="run-row__end">
+          <strong>{{ run.totalNet | money }}</strong>
+          <app-run-status-chip [status]="run.status" />
+        </div>
+      </a>
+    } @empty {
+      <app-empty-state icon="payments" [message]="'payroll.empty' | translate" />
+    }
+  </section>
+
+  <section class="card card__body">
+    <h2>{{ 'reports.byDepartment' | translate }}</h2>
+    <app-bar-list [items]="report()?.byDepartment ?? []" />
+    <h2 class="spaced">{{ 'reports.byGrade' | translate }}</h2>
+    <app-bar-list [items]="gradeItems()" />
+  </section>
+</div>

@@ -1,0 +1,74 @@
+.login {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 100dvh;
+  padding: 16px;
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at 15% 20%, var(--mat-sys-primary-container) 0, transparent 45%),
+    radial-gradient(circle at 85% 80%, var(--mat-sys-tertiary-container) 0, transparent 45%),
+    var(--mat-sys-surface-container-lowest);
+}
+
+.login__language {
+  position: absolute;
+  top: 16px;
+  inset-inline-end: 16px;
+}
+
+.login__card {
+  width: 100%;
+  max-width: 400px;
+  padding: 32px;
+  box-sizing: border-box;
+  border-radius: 24px;
+  background: var(--mat-sys-surface);
+  box-shadow: var(--mat-sys-level3);
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+.login__brand {
+  margin-block-end: 24px;
+  text-align: center;
+
+  mat-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 48px;
+    color: var(--mat-sys-primary);
+  }
+
+  h1 {
+    margin: 8px 0 4px;
+    font: var(--mat-sys-headline-small);
+  }
+
+  p {
+    margin: 0;
+    color: var(--mat-sys-on-surface-variant);
+  }
+}
+
+.login__error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--mat-sys-error-container);
+  color: var(--mat-sys-on-error-container);
+}
+
+.login__submit {
+  height: 48px;
+
+  mat-spinner {
+    margin-inline: auto;
+  }
+}

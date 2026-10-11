@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="notFound" xml:space="preserve"><value>The requested record was not found.</value></data>
+  <data name="department.notFound" xml:space="preserve"><value>Department not found.</value></data>
+  <data name="employee.notFound" xml:space="preserve"><value>Employee not found.</value></data>
+  <data name="payrollRun.notFound" xml:space="preserve"><value>Payroll run not found.</value></data>
+  <data name="rule.notFound" xml:space="preserve"><value>Rule not found.</value></data>
+  <data name="absence.notFound" xml:space="preserve"><value>Absence record not found.</value></data>
+  <data name="gradeSalary.notFound" xml:space="preserve"><value>No salary is defined for this grade.</value></data>
+  <data name="department.hasEmployees" xml:space="preserve"><value>Cannot delete a department that still has employees.</value></data>
+  <data name="department.nameExists" xml:space="preserve"><value>A department with the same name already exists.</value></data>
+  <data name="employee.emailExists" xml:space="preserve"><value>Another employee already uses this email.</value></data>
+  <data name="employee.underage" xml:space="preserve"><value>Employee must be at least 18 years old at hire date.</value></data>
+  <data name="employee.hireDateFuture" xml:space="preserve"><value>Hire date cannot be in the future.</value></data>
+  <data name="percentage.outOfRange" xml:space="preserve"><value>Percentage must be between 0 and 100.</value></data>
+  <data name="baseSalary.negative" xml:space="preserve"><value>Salary cannot be negative.</value></data>
+  <data name="minYears.negative" xml:space="preserve"><value>Minimum years cannot be negative.</value></data>
+  <data name="minDays.negative" xml:space="preserve"><value>Minimum days cannot be negative.</value></data>
+  <data name="rule.duplicateThreshold" xml:space="preserve"><value>A rule with the same threshold already exists.</value></data>
+  <data name="gradeSalary.exists" xml:space="preserve"><value>A salary is already defined for this grade. Edit it instead.</value></data>
+  <data name="absence.outsideEmployment" xml:space="preserve"><value>Absence date is before the employee&apos;s hire date.</value></data>
+  <data name="absence.futureDate" xml:space="preserve"><value>Absence cannot be recorded for a future date.</value></data>
+  <data name="absence.payrollLocked" xml:space="preserve"><value>The payroll for this month is approved; absences can no longer change.</value></data>
+  <data name="payroll.exists" xml:space="preserve"><value>A payroll run already exists for this month.</value></data>
+  <data name="payroll.locked" xml:space="preserve"><value>Approved payroll runs cannot be modified.</value></data>
+  <data name="payroll.empty" xml:space="preserve"><value>Cannot approve a payroll run without payslips.</value></data>
+  <data name="payroll.invalidMonth" xml:space="preserve"><value>Month must be between 1 and 12.</value></data>
+  <data name="payroll.invalidYear" xml:space="preserve"><value>Year is out of range.</value></data>
+  <data name="payroll.missingGradeSalary" xml:space="preserve"><value>Define salaries for all job grades before running payroll.</value></data>
+  <data name="auth.invalidCredentials" xml:space="preserve"><value>Invalid user name or password.</value></data>
+  <data name="auth.invalidRefreshToken" xml:space="preserve"><value>Your session has expired. Please sign in again.</value></data>
+  <data name="auth.lockedOut" xml:space="preserve"><value>Your account is temporarily locked. Please try again later.</value></data>
+  <data name="baseSalary.positive" xml:space="preserve"><value>Salary must be greater than zero.</value></data>
+  <data name="phone.invalid" xml:space="preserve"><value>Phone number may contain digits and an optional leading +.</value></data>
+  <data name="absence.duplicate" xml:space="preserve"><value>The employee is already recorded absent on this date.</value></data>
+  <data name="absenceRule.bonusExists" xml:space="preserve"><value>A bonus rule already exists. Edit it instead.</value></data>
+  <data name="payroll.futureMonth" xml:space="preserve"><value>Payroll cannot be generated for a future month.</value></data>
+  <data name="concurrency" xml:space="preserve"><value>The record was changed by another user. Reload and try again.</value></data>
+  <data name="duplicate" xml:space="preserve"><value>A record with the same values already exists.</value></data>
+  <data name="validation" xml:space="preserve"><value>One or more validation errors occurred.</value></data>
+  <data name="server" xml:space="preserve"><value>An unexpected error occurred.</value></data>
+</root>

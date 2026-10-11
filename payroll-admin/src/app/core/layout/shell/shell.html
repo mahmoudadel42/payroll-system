@@ -1,0 +1,72 @@
+<mat-sidenav-container class="shell">
+  <mat-sidenav
+    #drawer
+    class="shell__sidenav"
+    [mode]="isHandset() ? 'over' : 'side'"
+    [opened]="!isHandset()"
+    [attr.role]="isHandset() ? 'dialog' : 'navigation'"
+  >
+    <div class="brand">
+      <mat-icon class="brand__logo">account_balance_wallet</mat-icon>
+      <span class="brand__name">{{ 'app.name' | translate }}</span>
+    </div>
+
+    <mat-nav-list>
+      @for (item of navItems(); track item.route) {
+        <a
+          mat-list-item
+          [routerLink]="item.route"
+          routerLinkActive
+          #rla="routerLinkActive"
+          [activated]="rla.isActive"
+          (click)="closeOnHandset(drawer)"
+        >
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          <span matListItemTitle>{{ item.label | translate }}</span>
+        </a>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="shell__content">
+    <mat-toolbar class="topbar">
+      <button mat-icon-button (click)="drawer.toggle()" [attr.aria-label]="'nav.toggleMenu' | translate">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <span class="topbar__spacer"></span>
+
+      <button mat-button [matMenuTriggerFor]="languageMenu" [attr.aria-label]="'common.language' | translate">
+        <mat-icon>translate</mat-icon>
+        <span class="topbar__label">{{ language.option().label }}</span>
+      </button>
+      <mat-menu #languageMenu="matMenu">
+        @for (option of language.languages; track option.code) {
+          <button mat-menu-item (click)="setLanguage(option.code)" [disabled]="option.code === language.current()">
+            <span>{{ option.label }}</span>
+          </button>
+        }
+      </mat-menu>
+
+      <button mat-button class="user-button" [matMenuTriggerFor]="userMenu">
+        <span class="avatar">{{ initials() }}</span>
+        <span class="topbar__label">{{ auth.displayName() }}</span>
+      </button>
+      <mat-menu #userMenu="matMenu" xPosition="before">
+        <div class="user-menu__header">
+          <strong>{{ auth.displayName() }}</strong>
+          <small>{{ auth.userName() }} · {{ auth.roles().join(', ') }}</small>
+        </div>
+        <mat-divider />
+        <button mat-menu-item (click)="auth.logout()">
+          <mat-icon>logout</mat-icon>
+          <span>{{ 'auth.logout' | translate }}</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+
+    <main class="page">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

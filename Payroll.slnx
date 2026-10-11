@@ -1,0 +1,37 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="payroll-admin/" Type="Website" DisplayName="payroll-admin">
+      <BuildType Project="Debug" />
+      <Properties Name="WebsiteProperties">
+        <Property Name="Debug.AspNetCompiler.Debug" Value="&quot;True&quot;" />
+        <Property Name="Debug.AspNetCompiler.FixedNames" Value="&quot;false&quot;" />
+        <Property Name="Debug.AspNetCompiler.ForceOverwrite" Value="&quot;true&quot;" />
+        <Property Name="Debug.AspNetCompiler.PhysicalPath" Value="&quot;payroll-admin\&quot;" />
+        <Property Name="Debug.AspNetCompiler.TargetPath" Value="&quot;PrecompiledWeb\localhost_55194\&quot;" />
+        <Property Name="Debug.AspNetCompiler.Updateable" Value="&quot;true&quot;" />
+        <Property Name="Debug.AspNetCompiler.VirtualPath" Value="&quot;/localhost_55194&quot;" />
+        <Property Name="Release.AspNetCompiler.Debug" Value="&quot;False&quot;" />
+        <Property Name="Release.AspNetCompiler.FixedNames" Value="&quot;false&quot;" />
+        <Property Name="Release.AspNetCompiler.ForceOverwrite" Value="&quot;true&quot;" />
+        <Property Name="Release.AspNetCompiler.PhysicalPath" Value="&quot;payroll-admin\&quot;" />
+        <Property Name="Release.AspNetCompiler.TargetPath" Value="&quot;PrecompiledWeb\localhost_55194\&quot;" />
+        <Property Name="Release.AspNetCompiler.Updateable" Value="&quot;true&quot;" />
+        <Property Name="Release.AspNetCompiler.VirtualPath" Value="&quot;/localhost_55194&quot;" />
+        <Property Name="TargetFrameworkMoniker" Value="&quot;.NETFramework,Version%3Dv4.8&quot;" />
+        <Property Name="VWDPort" Value="&quot;55194&quot;" />
+      </Properties>
+    </Project>
+  </Folder>
+  <Folder Name="/src/Payroll.Api/">
+    <Project Path="Payroll.Api/Payroll.Api.csproj" />
+  </Folder>
+  <Folder Name="/src/Payroll.Application/">
+    <Project Path="Payroll.Application/Payroll.Application.csproj" />
+  </Folder>
+  <Folder Name="/src/Payroll.Domain/">
+    <Project Path="Payroll.Domain/Payroll.Domain.csproj" />
+  </Folder>
+  <Folder Name="/src/Payroll.Infrastructure/">
+    <Project Path="Payroll.Infrastructure/Payroll.Infrastructure.csproj" />
+  </Folder>
+</Solution>

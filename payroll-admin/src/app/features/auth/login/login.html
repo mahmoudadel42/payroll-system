@@ -1,0 +1,59 @@
+<div class="login">
+  <button mat-button class="login__language" (click)="language.toggle()">
+    <mat-icon>translate</mat-icon>
+    {{ language.current() === 'en' ? 'العربية' : 'English' }}
+  </button>
+
+  <section class="login__card">
+    <div class="login__brand">
+      <mat-icon>account_balance_wallet</mat-icon>
+      <h1>{{ 'app.name' | translate }}</h1>
+      <p>{{ 'auth.subtitle' | translate }}</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      @if (error(); as message) {
+        <div class="login__error" role="alert">
+          <mat-icon>error_outline</mat-icon>
+          <span>{{ message | translate }}</span>
+        </div>
+      }
+
+      <mat-form-field>
+        <mat-label>{{ 'auth.userName' | translate }}</mat-label>
+        <input matInput formControlName="userName" autocomplete="username" />
+        <mat-icon matPrefix>person</mat-icon>
+        <mat-error><app-control-error [control]="form.controls.userName" /></mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'auth.password' | translate }}</mat-label>
+        <input
+          matInput
+          formControlName="password"
+          autocomplete="current-password"
+          [type]="hidePassword() ? 'password' : 'text'"
+        />
+        <mat-icon matPrefix>lock</mat-icon>
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="hidePassword.set(!hidePassword())"
+          [attr.aria-label]="'auth.togglePassword' | translate"
+        >
+          <mat-icon>{{ hidePassword() ? 'visibility' : 'visibility_off' }}</mat-icon>
+        </button>
+        <mat-error><app-control-error [control]="form.controls.password" /></mat-error>
+      </mat-form-field>
+
+      <button mat-flat-button type="submit" class="login__submit" [disabled]="submitting()">
+        @if (submitting()) {
+          <mat-spinner diameter="20" />
+        } @else {
+          {{ 'auth.signIn' | translate }}
+        }
+      </button>
+    </form>
+  </section>
+</div>

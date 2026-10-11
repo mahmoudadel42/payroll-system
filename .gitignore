@@ -1,0 +1,37 @@
+# Build
+**/bin/
+**/obj/
+**/dist/
+**/out/
+*.user
+*.suo
+*.cache
+*.log
+
+# IDE / OS
+.vs/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Node / Angular
+**/node_modules/
+**/.angular/
+npm-debug.log*
+yarn-error.log*
+
+# Secrets / local overrides
+**/appsettings.*.local.json
+**/appsettings.Development.json
+**/secrets.json
+.env
+.env.*
+
+# Test / coverage
+**/coverage/
+**/TestResults/
+*.trx
+
+# Publish
+**/publish/
+*.pubxml.user

@@ -1,0 +1,58 @@
+<div class="table-wrapper">
+  @if (resource.isLoading()) {
+    <mat-progress-bar class="loading-bar" mode="indeterminate" />
+  }
+
+  <table mat-table [dataSource]="rows()">
+    <ng-container matColumnDef="grade">
+      <th mat-header-cell *matHeaderCellDef>{{ 'employees.grade' | translate }}</th>
+      <td mat-cell *matCellDef="let row">
+        <span class="chip chip--info">{{ 'enums.grade.' + row.grade | translate }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="baseSalary">
+      <th mat-header-cell *matHeaderCellDef class="num">{{ 'payroll.baseSalary' | translate }}</th>
+      <td mat-cell *matCellDef="let row" class="num">
+        @if (editing() === row.grade) {
+          <mat-form-field subscriptSizing="dynamic">
+            <input matInput type="number" min="0" step="0.01" [formControl]="salary" (keyup.enter)="save(row)" />
+            <mat-error><app-control-error [control]="salary" /></mat-error>
+          </mat-form-field>
+        } @else if (row.baseSalary === null) {
+          <span class="chip chip--warning">{{ 'settings.notConfigured' | translate }}</span>
+        } @else {
+          {{ row.baseSalary | money }}
+        }
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="updatedAt">
+      <th mat-header-cell *matHeaderCellDef>{{ 'settings.updatedAt' | translate }}</th>
+      <td mat-cell *matCellDef="let row" class="muted">{{ row.updatedAt | localDate: 'dateTime' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="actions"></th>
+      <td mat-cell *matCellDef="let row" class="actions">
+        <ng-container *appHasRole="'Admin'">
+          @if (editing() === row.grade) {
+            <button mat-icon-button (click)="save(row)" [disabled]="saving()" [matTooltip]="'common.save' | translate">
+              <mat-icon>check</mat-icon>
+            </button>
+            <button mat-icon-button (click)="cancel()" [matTooltip]="'common.cancel' | translate">
+              <mat-icon>close</mat-icon>
+            </button>
+          } @else {
+            <button mat-icon-button (click)="startEdit(row)" [matTooltip]="'common.edit' | translate">
+              <mat-icon>edit</mat-icon>
+            </button>
+          }
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+  </table>
+</div>

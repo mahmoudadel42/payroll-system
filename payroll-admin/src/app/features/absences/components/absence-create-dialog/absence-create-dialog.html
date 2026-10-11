@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>{{ 'absences.create' | translate }}</h2>
+<form [formGroup]="form" (ngSubmit)="save()" novalidate>
+  <mat-dialog-content>
+    <div class="form-grid">
+      <div class="full-width">
+        <app-employee-picker [control]="form.controls.employee" />
+      </div>
+
+      <mat-form-field class="full-width">
+        <mat-label>{{ 'absences.addDate' | translate }}</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          [formControl]="pickerControl"
+          [max]="maxDate"
+          (dateChange)="addDate($event)"
+          readonly
+          (click)="picker.open()"
+        />
+        <mat-datepicker-toggle matIconSuffix [for]="picker" />
+        <mat-datepicker #picker [dateClass]="dateClass" />
+        <mat-hint>{{ 'absences.addDateHint' | translate }}</mat-hint>
+      </mat-form-field>
+
+      <div class="dates">
+        <mat-chip-set [attr.aria-label]="'absences.selectedDates' | translate">
+          @for (date of dates(); track date) {
+            <mat-chip (removed)="removeDate(date)">
+              {{ date | localDate }}
+              <button matChipRemove [attr.aria-label]="'common.remove' | translate">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip>
+          }
+        </mat-chip-set>
+        @if (datesInvalid()) {
+          <p class="dates__hint negative">{{ 'absences.datesRequired' | translate }}</p>
+        }
+      </div>
+
+      <mat-form-field class="full-width">
+        <mat-label>{{ 'absences.reason' | translate }}</mat-label>
+        <textarea matInput formControlName="reason" rows="2"></textarea>
+        <mat-error><app-control-error [control]="form.controls.reason" /></mat-error>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" mat-dialog-close>{{ 'common.cancel' | translate }}</button>
+    <button mat-flat-button type="submit" [disabled]="saving()">
+      {{ 'absences.saveCount' | translate: { count: dates().length } }}
+    </button>
+  </mat-dialog-actions>
+</form>

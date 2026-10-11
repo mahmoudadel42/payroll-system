@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="notFound" xml:space="preserve"><value>السجل المطلوب غير موجود.</value></data>
+  <data name="department.notFound" xml:space="preserve"><value>القسم غير موجود.</value></data>
+  <data name="employee.notFound" xml:space="preserve"><value>الموظف غير موجود.</value></data>
+  <data name="payrollRun.notFound" xml:space="preserve"><value>مسير الرواتب غير موجود.</value></data>
+  <data name="rule.notFound" xml:space="preserve"><value>القاعدة غير موجودة.</value></data>
+  <data name="absence.notFound" xml:space="preserve"><value>سجل الغياب غير موجود.</value></data>
+  <data name="gradeSalary.notFound" xml:space="preserve"><value>لا يوجد مرتب محدد لهذه الدرجة.</value></data>
+  <data name="department.hasEmployees" xml:space="preserve"><value>لا يمكن حذف قسم يحتوي على موظفين.</value></data>
+  <data name="department.nameExists" xml:space="preserve"><value>يوجد قسم بنفس الاسم بالفعل.</value></data>
+  <data name="employee.emailExists" xml:space="preserve"><value>البريد الإلكتروني مستخدم لموظف آخر.</value></data>
+  <data name="employee.underage" xml:space="preserve"><value>يجب ألا يقل عمر الموظف عن 18 عامًا في تاريخ التعيين.</value></data>
+  <data name="employee.hireDateFuture" xml:space="preserve"><value>لا يمكن أن يكون تاريخ التعيين في المستقبل.</value></data>
+  <data name="percentage.outOfRange" xml:space="preserve"><value>يجب أن تكون النسبة بين 0 و 100.</value></data>
+  <data name="baseSalary.negative" xml:space="preserve"><value>لا يمكن أن يكون المرتب سالبًا.</value></data>
+  <data name="minYears.negative" xml:space="preserve"><value>لا يمكن أن يكون عدد السنوات سالبًا.</value></data>
+  <data name="minDays.negative" xml:space="preserve"><value>لا يمكن أن يكون عدد الأيام سالبًا.</value></data>
+  <data name="rule.duplicateThreshold" xml:space="preserve"><value>توجد قاعدة بنفس الحد بالفعل.</value></data>
+  <data name="gradeSalary.exists" xml:space="preserve"><value>يوجد مرتب محدد لهذه الدرجة بالفعل، قم بتعديله.</value></data>
+  <data name="absence.outsideEmployment" xml:space="preserve"><value>تاريخ الغياب قبل تاريخ تعيين الموظف.</value></data>
+  <data name="absence.futureDate" xml:space="preserve"><value>لا يمكن تسجيل غياب في تاريخ مستقبلي.</value></data>
+  <data name="absence.payrollLocked" xml:space="preserve"><value>تم اعتماد رواتب هذا الشهر ولا يمكن تعديل الغياب.</value></data>
+  <data name="payroll.exists" xml:space="preserve"><value>يوجد مسير رواتب لهذا الشهر بالفعل.</value></data>
+  <data name="payroll.locked" xml:space="preserve"><value>لا يمكن تعديل مسير رواتب معتمد.</value></data>
+  <data name="payroll.empty" xml:space="preserve"><value>لا يمكن اعتماد مسير رواتب بدون قسائم.</value></data>
+  <data name="payroll.invalidMonth" xml:space="preserve"><value>يجب أن يكون الشهر بين 1 و 12.</value></data>
+  <data name="payroll.invalidYear" xml:space="preserve"><value>السنة خارج النطاق المسموح.</value></data>
+  <data name="payroll.missingGradeSalary" xml:space="preserve"><value>يجب تحديد المرتبات لجميع الدرجات الوظيفية قبل حساب الرواتب.</value></data>
+  <data name="auth.invalidCredentials" xml:space="preserve"><value>اسم المستخدم أو كلمة المرور غير صحيحة.</value></data>
+  <data name="auth.invalidRefreshToken" xml:space="preserve"><value>انتهت الجلسة، يرجى تسجيل الدخول مرة أخرى.</value></data>
+  <data name="auth.lockedOut" xml:space="preserve"><value>تم إيقاف الحساب مؤقتًا، يرجى المحاولة لاحقًا.</value></data>
+  <data name="baseSalary.positive" xml:space="preserve"><value>يجب أن يكون المرتب أكبر من صفر.</value></data>
+  <data name="phone.invalid" xml:space="preserve"><value>رقم الهاتف يجب أن يحتوي على أرقام فقط مع علامة + اختيارية في البداية.</value></data>
+  <data name="absence.duplicate" xml:space="preserve"><value>الموظف مسجل غائبًا في هذا التاريخ بالفعل.</value></data>
+  <data name="absenceRule.bonusExists" xml:space="preserve"><value>توجد قاعدة حافز بالفعل، قم بتعديلها.</value></data>
+  <data name="payroll.futureMonth" xml:space="preserve"><value>لا يمكن حساب الرواتب لشهر مستقبلي.</value></data>
+  <data name="concurrency" xml:space="preserve"><value>تم تعديل السجل بواسطة مستخدم آخر، يرجى إعادة التحميل والمحاولة مرة أخرى.</value></data>
+  <data name="duplicate" xml:space="preserve"><value>يوجد سجل بنفس البيانات بالفعل.</value></data>
+  <data name="validation" xml:space="preserve"><value>حدث خطأ أو أكثر في البيانات المدخلة.</value></data>
+  <data name="server" xml:space="preserve"><value>حدث خطأ غير متوقع.</value></data>
+</root>
